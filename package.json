@@ -1,0 +1,38 @@
+{
+    "name": "HackTheSix",
+    "version": "1.1.0",
+    "description": "HackTheSixProject",
+    "main": "popup.js",
+    "dependencies": {
+        "chart.js": "^2.6.0",
+        "concurrently": "^3.4.0"
+    },
+    "devDependencies": {
+        "concurrently": "^3.4.0",
+        "jshint": "^2.9.4",
+        "lite-server": "^2.3.0",
+        "uglify-js": "^3.0.15"
+    },
+    "scripts": {
+        "dev-setup": "lite-server -c bs-config.json",
+        "dev": "lite-server",
+        "copy": "cp -rf src/resources dist && cp -rf src/scripts dist",
+        "build-js": "mkdir -p dist/js && mkdir -p dist/css && pug src/popup.pug -o dist/ && uglifyjs src/js/popup.js -m -o dist/js/popup.min.js && stylus src/css/stylesheet.styl -o dist/css/stylesheet.css && npm run copy",
+        "clean": "rm -R dist",
+        "clean-build": "npm run clean && npm run build-js",
+        "zip": "cd dist && bestzip ../bundle.zip .",
+        "deploy": "npm run build-js && npm run zip",
+        "watch": "concurrently 'stylus -w src/css/stylesheet.styl -o dist/css/stylesheet.css' 'pug -w src/popup.pug -o dist/' ",
+        "lint": "jshint src/**.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/JimJZhu/HackTheSix.git"
+    },
+    "author": "Jim J Zhu",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/JimJZhu/HackTheSix/issues"
+    },
+    "homepage": "https://github.com/JimJZhu/HackTheSix#readme"
+}

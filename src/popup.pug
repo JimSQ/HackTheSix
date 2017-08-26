@@ -1,0 +1,28 @@
+doctype html
+html(lang="en")
+    head
+        title Quick Graph
+        link(rel='stylesheet' href='../css/stylesheet.css')
+        script(src='../scripts/Chart.bundle.min.js')
+        script(src='../js/popup.min.js')
+    body
+        h1 Quick Graph
+        h3 X Values (Comma Seperated)
+        textarea(id='xValues' rows='4' cols='50')
+        h3 Y Values (Comma Seperated)
+        textarea(id='yValues' rows='4' cols='50')
+        .radio_buttons
+            .radio_button
+                input(type="radio" id="1" name="radio")
+                label(for="1") Scatter
+            .radio_button
+                input(type="radio" id="2" name="radio")
+                label(for="2") Pie
+            .radio_button
+                input(type="radio" id="3" name="radio")
+                label(for="3") Bar
+
+        button(id='generateGraph') Generate Graph
+        h4(id='message')
+        canvas(id='myChart' width='400' height='400')
+
