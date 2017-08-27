@@ -5,14 +5,14 @@ var accessToken = "f5c36cec32f64f61a0fdf426d25fce51",
 
 $(document).ready(function() {
     $input = $("#input");
-    $recBtn = $("#rec");
+    $goBtn = $("#go");
     $input.keypress(function(event) {
         if (event.which == 13) {
             event.preventDefault();
             send();
         }
     });
-    $recBtn.on("click", function(event) {
+    $goBtn.on("click", function(event) {
         send();
     });
     $(".debug__btn").on("click", function() {
@@ -21,14 +21,12 @@ $(document).ready(function() {
     });
 });
 
-function updateRec() {
-    $recBtn.text(recognition ? "Stop" : "Speak");
-}
-
 function send() {
     var text = $input.val();
     $("#spokenResponse").addClass("is-active").find(".spoken-response__text").append("[User]: " + text + "\n");
-    $("#logo").css("opacity", 0);
+    $("#logo").css("opacity", "20%").css("font-size", "3.5rem");
+    $('.spoken-response__text').scrollTop($('.spoken-response__text')[0].scrollHeight);
+    $('#input').attr("placeholder", "Feed me");
     if (text == "") {
         respond("", "Please type something...");
         return;
@@ -77,13 +75,16 @@ function callAPI(val) {
     var arr = params.split(',');
     var urlExt = "";
     for (var i = 0; i < arr.length; i++) {
+        console.log(i + " : " + arr[i]);
         urlExt += "&" + arr[i] + "=" + val.result.parameters[arr[i]];
     }
     urlExt = urlExt.substring(1);
     var location = val.result.parameters.location;
     var URL = "https://www.alphavantage.co/query?" + urlExt + "&apikey=" + investApiKey
     var apiData;
+    console.log(URL);
     $.get(URL, function(data, status) {
+        console.log("Rep:" + JSON.stringify(data));
         arr = location.split(',');
         for (var i = 0; i < arr.length; i++) {
             if (arr[i][0] == '#') {

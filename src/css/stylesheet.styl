@@ -5,7 +5,7 @@ html
     box-sizing inherit
 
 body
-    background-color #192837
+    background-color #EDDDD4
     font-family "Titillium Web", Arial, sans-serif
     font-size 20px
     margin 0
@@ -20,21 +20,23 @@ body
     
 #logo
     margin auto
-    font-size 5rem
+    font-size 6rem
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
     -ms-transition: all 0.5s ease-in-out;
     -o-transition: all 0.5s ease-in-out;
     transition: all 0.5s ease-in-out;
+    color black
 
 .input__container
     display flex
+    margin auto
     width 400px
 
 input
-    background-color #126077
+    background-color #EEEEEE
     border 1px solid #3F7F93
-    color #A6CAE6
+    color black
     font-family "Titillium Web"
     font-size 20px
     line-height 43px
@@ -51,23 +53,24 @@ textarea
     -webkit-transition all 0.35s ease-in
 
 input:active, input:focus, textarea:active, textarea:focus
-    outline 1px solid #48788B
+    outline 1px solid #929487
 
 .btn
-    background-color #126178
-    border 1px solid #549EAF
-    color #549EAF
+    background-color #6B6054
+    border 1px solid #929487
+    color black
     cursor pointer
     display inline-block
     font-family "Titillium Web"
     font-size 20px
+    font-weight 700
     line-height 43px
     padding 0 0.75em
     text-align center
     text-transform uppercase
     -webkit-transition all 0.35s ease-in
     &:hover
-        background-color #1888A9
+        background-color #929487
         color #183035
 
 .debug
@@ -95,10 +98,12 @@ input:active, input:focus, textarea:active, textarea:focus
         max-height 400px
 
 .spoken-response__text
-    background-color #040E23
-    color #7584A2
-    padding 1em
+    background-color #EEE
+    color #222
+    padding 2em
     overflow hidden
     resize none
-    height 40rem
+    height 20rem
     width 400px
+    font-size 1rem
+    margin 0.5rem 0rem
