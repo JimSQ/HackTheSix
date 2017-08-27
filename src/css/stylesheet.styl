@@ -1,54 +1,85 @@
-// Paletton UID 52P0u0kllll9+-GfFrsr0fey397
-darkest-green = #003a00
-darker-green = #0f610f
-main-green = #2d882d
-light-green = #59af59
-lighest-green = #92d392
+html
+    box-sizing border-box
 
-background-gray = #eee
+*, *:before, *:after
+    box-sizing inherit
 
-body 
-    font-family "Segoe UI", "Lucida Grande", Tahoma, sans-serif
-    font-size 100%
-    background-color background-gray
+body
+    background-color #192837
+    font-family "Titillium Web", Arial, sans-serif
+    font-size 20px
     margin 0
-    h1
-        font-size 200%
-        margin 0 0 2rem 0
-        padding 1rem
-        background-color main-green
-        text-align center
-        border-radius 0
-        box-shadow 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    h3
-        margin 1rem 0 1rem 0.5rem
-    textarea
-        margin 0 0.5rem
-    .radio_buttons
-        display flex
-        flex-direction row
-        margin 1rem 0rem
-        .radio_button
-            margin: 0 0.5rem
-            display inline-block
-    button
-        color white
-        display block
-        background-color main-green
-        padding 1rem 2rem
-        font-size 16px
-        text-decoration none
-        margin 1rem 0.5rem
-        border none
-        border-radius 0.3rem
-        display block
-    #message
-        margin 0 0.5rem
 
-#status 
-    /* avoid an excessively wide status text */
-    white-space pre
-    text-overflow ellipsis
+.container
+    position fixed
+    top 50%
+    left 50%
+    -webkit-transform translate(-50%, -50%)
+
+input
+    background-color #126077
+    border 1px solid #3F7F93
+    color #A6CAE6
+    font-family "Titillium Web"
+    font-size 20px
+    line-height 43px
+    padding 0 0.75em
+    width 400px
+    -webkit-transition all 0.35s ease-in
+
+textarea
+    background-color #070F24
+    border 1px solid #122435
+    color #606B88
+    padding 0.5em
+    width 100%
+    -webkit-transition all 0.35s ease-in
+
+input:active, input:focus, textarea:active, textarea:focus
+    outline 1px solid #48788B
+
+.btn
+    background-color #126178
+    border 1px solid #549EAF
+    color #549EAF
+    cursor pointer
+    display inline-block
+    font-family "Titillium Web"
+    font-size 20px
+    line-height 43px
+    padding 0 0.75em
+    text-align center
+    text-transform uppercase
+    -webkit-transition all 0.35s ease-in
+    &:hover
+        background-color #1888A9
+        color #183035
+
+.debug
+    bottom 0
+    position fixed
+    right 0
+
+.debug__content
+    font-size 14px
+    max-height 0
     overflow hidden
-    max-width 400px
-    
+    -webkit-transition all 0.35s ease-in
+    &.is-active
+        display block
+        max-height 500px
+
+.debug__btn
+    width 100%
+
+.spoken-response
+    max-height 0
+    overflow hidden
+    -webkit-transition all 0.35s ease-in
+    &.is-active
+        max-height 400px
+
+.spoken-response__text
+    background-color #040E23
+    color #7584A2
+    padding 1em
