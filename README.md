@@ -5,6 +5,7 @@
 1. (sudo) npm install
 1. npm install -g pug-cli
 1. npm install -g stylus
+1. google how to install yarn 
 1. npm run build-js
 1. npm run dev-setup
 

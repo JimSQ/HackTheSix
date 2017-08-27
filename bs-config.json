@@ -1,6 +1,6 @@
 {
     "port": 8000,
-    "files": ["./dist/**/*.{html,htm,css,js}"],
+    "files": ["./dist/**/*.{html,htm,css,js,ico,png}"],
     "server": { "baseDir": "./dist" },
-    "startPath": "/popup.html"
+    "startPath": "/app.html"
 }

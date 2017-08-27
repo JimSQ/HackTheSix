@@ -1,22 +1,20 @@
 html
   head
-    title Hack The 6ix
+    title Investerbate
     meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
     script(src='//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
     script(type='text/javascript')
-    script(src='../js/popup.min.js')
-    link(rel='stylesheet' href='../css/stylesheet.css')
+    script(src='../js/app.min.js')
+    link(rel='stylesheet' href="/css/stylesheet.css")
+    link(rel="shortcut icon" href="/resources/favicon.ico" type="image/x-icon")
+    link(rel="icon" href="/resources/favicon.ico" type="image/x-icon")
   body
     .container
       h1#logo Investerbate
-      #spokenResponse.spoken-response
-        textarea.spoken-response__text
+      img(href="/resources/icon.png")
+      #spokenResponse.response
+        textarea.response__text(readonly)
       .input__container
         input#input(type='text' placeholder="Enter a command to start...")
         button#go.btn GO
-    .debug
-      .debug__btn.btn
-        | Debug JSON results
-      .debug__content
-        textarea#response(cols='40', rows='20')
     link(href='https://fonts.googleapis.com/css?family=Titillium+Web:200', rel='stylesheet', type='text/css')

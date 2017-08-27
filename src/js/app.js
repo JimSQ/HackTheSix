@@ -1,15 +1,25 @@
 var accessToken = "f5c36cec32f64f61a0fdf426d25fce51",
     investApiKey = "YTG3TTH2PRUNCIVQ",
     baseUrl = "https://api.api.ai/v1/",
-    $input
+    $input,
+    histPosition = 0;
+
+var hist;
 
 $(document).ready(function() {
     $input = $("#input");
     $goBtn = $("#go");
-    $input.keypress(function(event) {
+    hist = [];
+    $input.keydown(function(event) {
         if (event.which == 13) {
             event.preventDefault();
             send();
+        } else if (event.which == 38) {
+            histPosition += histPosition < hist.length ? 1 : 0;
+            $('#input').val(hist[hist.length - histPosition]);
+        } else if (event.which == 40) {
+            histPosition -= histPosition > 0 ? 1 : 0;
+            $('#input').val(hist[hist.length - histPosition]);
         }
     });
     $goBtn.on("click", function(event) {
@@ -23,10 +33,13 @@ $(document).ready(function() {
 
 function send() {
     var text = $input.val();
-    $("#spokenResponse").addClass("is-active").find(".spoken-response__text").append("[User]: " + text + "\n");
+    $("#spokenResponse").addClass("is-active").find(".response__text").append("[User]: " + text + "\n");
     $("#logo").css("opacity", "20%").css("font-size", "3.5rem");
-    $('.spoken-response__text').scrollTop($('.spoken-response__text')[0].scrollHeight);
+    $('.response__text').scrollTop($('.response__text')[0].scrollHeight);
     $('#input').attr("placeholder", "Feed me");
+    hist.push(text);
+    histPosition = 0;
+    $('#input').val('');
     if (text == "") {
         respond("", "Please type something...");
         return;
@@ -112,12 +125,12 @@ function callAPI(val) {
 }
 
 function debugRespond(val) {
-    $("#response").text(val);
+    $("#debug_response").text(val);
 }
 
 function respond(response, template) {
     if (response == "") {
         response = "Please type something...";
     }
-    $("#spokenResponse").addClass("is-active").find(".spoken-response__text").append("[Investerbot]: " + template.replace("$output", response.replace('"', "$").replace('"', ".")) + "\n");
+    $("#spokenResponse").addClass("is-active").find(".response__text").append("[Investerbate]: " + template.replace("$output", response.replace('"', "").replace('"', ".")) + "\n");
 }
