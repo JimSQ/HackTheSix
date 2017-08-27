@@ -33,7 +33,7 @@ $(document).ready(function() {
 
 function send() {
     var text = $input.val();
-    $("#spokenResponse").addClass("is-active").find(".response__text").append("[User]: " + text + "\n");
+    $("#response").addClass("is-active").find(".response__text").append("[User]: " + text + "\n");
     $("#logo").css("opacity", "20%").css("font-size", "3.5rem");
     $('.response__text').scrollTop($('.response__text')[0].scrollHeight);
     $('#input').attr("placeholder", "Feed me");
@@ -132,5 +132,5 @@ function respond(response, template) {
     if (response == "") {
         response = "Please type something...";
     }
-    $("#spokenResponse").addClass("is-active").find(".response__text").append("[Investerbate]: " + template.replace("$output", response.replace('"', "").replace('"', ".")) + "\n");
+    $("#response").addClass("is-active").find(".response__text").append("[Investerbate]: " + template.replace("$output", response.replace('"', "").replace('"', ".")) + "\n");
 }
