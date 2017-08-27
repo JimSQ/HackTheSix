@@ -5,10 +5,12 @@ html
     script(src='//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
     script(type='text/javascript').
       var accessToken = "f5c36cec32f64f61a0fdf426d25fce51",
+      investApiKey = "YTG3TTH2PRUNCIVQ",
       baseUrl = "https://api.api.ai/v1/",
       $speechInput,
       $recBtn,
       recognition,
+      
       messageRecording = "Recording...",
       messageCouldntHear = "I couldn't hear you, could you say that again?",
       messageInternalError = "Oh no, there has been an internal server error",
@@ -97,13 +99,55 @@ html
       function prepareResponse(val) {
         var debugJSON = JSON.stringify(val, undefined, 2),
         spokenResponse = val.result.speech;
-        respond(spokenResponse);
+        callAPI(val);
+        //- respond(spokenResponse);
         debugRespond(debugJSON);
+      }
+      function callAPI(val){
+        var funct = val.result.parameters.function;
+        var symb = val.result.parameters.symbol;
+        var location = val.result.parameters.location;
+        var URL = "https://www.alphavantage.co/query?function=" + funct + "&symbol=" + symb + "&apikey=" + investApiKey
+        var apiData;
+          $.get(URL,function(data, status){
+        var arr = location.split(',');
+        for(var i = 0; i < arr.length; i++){
+          console.log(JSON.stringify(data));
+          if (arr[i][0] == '$'){
+            if(val.result.parameters[arr[i].substring(1)] != null){
+              console.log(":*)" + data[val.result.parameters[arr[i].substring(1)]]);
+              if(data[val.result.parameters[arr[i].substring(1)]] == undefined){
+                console.log("undefined :)");
+                data = data[Object.keys(data)[0]];
+              }else{
+                data = data[val.result.parameters[arr[i].substring(1)]];
+              }
+            }else{
+              //Is null, go first
+              console.log("kl");
+              data = data[Object.keys(data)[0]];
+            }
+          }else{
+            console.log(arr[i]);
+            if(data[arr[i]] == undefined){
+              data = data[Object.keys(data)[0]];
+            }else{
+              data = data[arr[i]];
+            }
+          }
+        }     
+        apiData = JSON.stringify(data, undefined, 2);
+        //- alert("URL:" + URL + " Data: " + apiData + "\nStatus: " + status);
+        respond(apiData, val.result.speech);
+      });
+      }
+      function parseParams(val){  
+
       }
       function debugRespond(val) {
         $("#response").text(val);
       }
-      function respond(val) {
+      function respond(val, template) {
         if (val == "") {
           val = messageSorry;
         }
