@@ -4,6 +4,7 @@ var accessToken = "f5c36cec32f64f61a0fdf426d25fce51",
     $input,
     histPosition = 0;
 
+//For previous command tracking
 var hist;
 
 $(document).ready(function() {
@@ -12,12 +13,15 @@ $(document).ready(function() {
     hist = [];
     $input.keydown(function(event) {
         if (event.which == 13) {
+            //Enter key
             event.preventDefault();
             send();
         } else if (event.which == 38) {
+            //Up key for recalling previous commands
             histPosition += histPosition < hist.length ? 1 : 0;
             $('#input').val(hist[hist.length - histPosition]);
         } else if (event.which == 40) {
+            //Down key for retrieving newer commands
             histPosition -= histPosition > 0 ? 1 : 0;
             $('#input').val(hist[hist.length - histPosition]);
         }
@@ -26,6 +30,7 @@ $(document).ready(function() {
         send();
     });
     $(".debug__btn").on("click", function() {
+        //Debugging button
         $(this).next().toggleClass("is-active");
         return false;
     });
@@ -33,6 +38,7 @@ $(document).ready(function() {
 
 function send() {
     var text = $input.val();
+    //Changing UI elements
     $("#response").addClass("is-active").find(".response__text").append("[User]: " + text + "\n");
     $("#logo").css("opacity", "20%").css("font-size", "3.5rem");
     $('.response__text').scrollTop($('.response__text')[0].scrollHeight);
@@ -41,9 +47,11 @@ function send() {
     histPosition = 0;
     $('#input').val('');
     if (text == "") {
+        //Error checking
         respond("", "Please type something...");
         return;
     }
+    //Sending the request to API.AI
     $.ajax({
         type: "POST",
         url: baseUrl + "query",
@@ -63,15 +71,17 @@ function send() {
 }
 
 function prepareResponse(val) {
+    //Gets JSON for debugging
     var debugJSON = JSON.stringify(val, undefined, 2);
     debugRespond(debugJSON);
+    //Calls the financial data api
     callAPI(val);
 }
 
 function isEmpty(object) { for (var i in object) { return true; } return false; }
 
 function callAPI(val) {
-    console.log(val);
+    //Error checking
     if (Object.getOwnPropertyNames(val).length == 0) {
         respond("", "Please Type Something...");
         return;
@@ -84,21 +94,21 @@ function callAPI(val) {
         respond("", val.result.speech);
         return;
     }
+    //Retrieves data from API.AI and sends them to the alphaavantage API dynamically
     var params = val.result.parameters.params;
     var arr = params.split(',');
     var urlExt = "";
     for (var i = 0; i < arr.length; i++) {
-        console.log(i + " : " + arr[i]);
+        //Generates GET parameters from API.AI
         urlExt += "&" + arr[i] + "=" + val.result.parameters[arr[i]];
     }
     urlExt = urlExt.substring(1);
     var location = val.result.parameters.location;
     var URL = "https://www.alphavantage.co/query?" + urlExt + "&apikey=" + investApiKey
     var apiData;
-    console.log(URL);
     $.get(URL, function(data, status) {
-        console.log("Rep:" + JSON.stringify(data));
         arr = location.split(',');
+        //Searches in the returned object for the requested value
         for (var i = 0; i < arr.length; i++) {
             if (arr[i][0] == '#') {
                 if (val.result.parameters[arr[i].substring(1)] != null) {
@@ -129,8 +139,9 @@ function debugRespond(val) {
 }
 
 function respond(response, template) {
+    //Print response
     if (response == "") {
         response = "Please type something...";
     }
-    $("#response").addClass("is-active").find(".response__text").append("[Investerbate]: " + template.replace("$output", response.replace('"', "").replace('"', ".")) + "\n");
+    $("#response").addClass("is-active").find(".response__text").append("[Investormate]: " + template.replace("$output", response.replace('"', "").replace('"', ".")) + "\n");
 }
