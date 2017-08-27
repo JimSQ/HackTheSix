@@ -8,10 +8,12 @@ html
     link(rel='stylesheet' href='../css/stylesheet.css')
   body
     .container
-      input#speech(type='text')
-      button#rec.btn Speak
+      h1#logo Investerbate
       #spokenResponse.spoken-response
-        .spoken-response__text
+        textarea.spoken-response__text
+      .input__container
+        input#input(type='text' placeholder="Enter a command")
+        button#rec.btn GO
     .debug
       .debug__btn.btn
         | Debug JSON results

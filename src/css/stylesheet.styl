@@ -12,9 +12,24 @@ body
 
 .container
     position fixed
-    top 50%
+    top 40%
     left 50%
+    display flex
+    flex-direction column
     -webkit-transform translate(-50%, -50%)
+    
+#logo
+    margin auto
+    font-size 5rem
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+
+.input__container
+    display flex
+    width 400px
 
 input
     background-color #126077
@@ -67,7 +82,6 @@ input:active, input:focus, textarea:active, textarea:focus
     -webkit-transition all 0.35s ease-in
     &.is-active
         display block
-        max-height 500px
 
 .debug__btn
     width 100%
@@ -83,3 +97,7 @@ input:active, input:focus, textarea:active, textarea:focus
     background-color #040E23
     color #7584A2
     padding 1em
+    overflow hidden
+    resize none
+    height 40rem
+    width 400px
